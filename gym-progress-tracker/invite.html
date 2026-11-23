@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Friend invite – Gym Progress Tracker by Hido</title>
+  <link rel="stylesheet" href="../style.css">
+  <style>
+    .code { font-size: 34px; font-weight: 800; letter-spacing: 3px; margin: 8px 0 24px; }
+    .button { display: inline-block; padding: 14px 22px; border-radius: 14px; background: var(--accent); color: var(--bg);
+      font-weight: 700; text-decoration: none; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>You are invited</h1>
+  <p>A friend wants to train with you on Gym Progress Tracker.</p>
+
+  <p class="meta">Your code</p>
+  <p class="code" id="code">–</p>
+
+  <p><a class="button" id="open" href="#">Open in the app</a></p>
+
+  <p>
+    If the button does nothing, open the app and go to <strong>Challenges → Enter a code</strong>, then type the code above.
+  </p>
+  <p class="meta">
+    Do not have the app yet? It is in testing on Android. Ask your friend for the test link.
+  </p>
+</main>
+<script>
+  // Reads ?code=K7QMX2PA, shows it as K7QM-X2PA and points the button at the app.
+  var params = new URLSearchParams(location.search);
+  var code = (params.get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  if (/^[A-HJ-NP-Z2-9]{8}$/.test(code)) {
+    document.getElementById('code').textContent = code.slice(0, 4) + '-' + code.slice(4);
+    document.getElementById('open').href = 'com.hido.gymapp://invite/' + code;
+  } else {
+    document.getElementById('code').textContent = 'Invalid link';
+    document.getElementById('open').style.display = 'none';
+  }
+</script>
+</body>
+</html>
