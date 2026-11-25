@@ -4,38 +4,55 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Friend invite – Gym Progress Tracker by Hido</title>
+  <title>Invite – Gym Progress Tracker by Hido</title>
   <link rel="stylesheet" href="../style.css">
   <style>
     .code { font-size: 34px; font-weight: 800; letter-spacing: 3px; margin: 8px 0 24px; }
     .button { display: inline-block; padding: 14px 22px; border-radius: 14px; background: var(--accent); color: var(--bg);
-      font-weight: 700; text-decoration: none; }
+      font-weight: 700; text-decoration: none; margin: 0 8px 12px 0; }
+    .button.secondary { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    ol li { margin-bottom: 6px; }
   </style>
 </head>
 <body>
 <main>
-  <h1>You are invited</h1>
-  <p>A friend wants to train with you on Gym Progress Tracker.</p>
+  <h1 id="title">You are invited</h1>
+  <p id="intro">A friend wants to train with you on Gym Progress Tracker.</p>
 
   <p class="meta">Your code</p>
   <p class="code" id="code">–</p>
 
-  <p><a class="button" id="open" href="#">Open in the app</a></p>
-
   <p>
-    If the button does nothing, open the app and go to <strong>Challenges → Enter a code</strong>, then type the code above.
+    <a class="button" id="open" href="#">Open in the app</a>
+    <a class="button secondary" id="download" href="#">Get the app (Android)</a>
   </p>
-  <p class="meta">
-    Do not have the app yet? It is in testing on Android. Ask your friend for the test link.
-  </p>
+
+  <h2>Don't have the app yet?</h2>
+  <ol>
+    <li>Tap <strong>Get the app</strong> on your Android phone and install it.</li>
+    <li>Open the app and create a free account.</li>
+    <li id="step3">Go to <strong>Challenges → Enter a code</strong> and type the code above.</li>
+  </ol>
+  <p class="meta">The app is in testing on Android. iPhone comes later.</p>
 </main>
 <script>
-  // Reads ?code=K7QMX2PA, shows it as K7QM-X2PA and points the button at the app.
+  // Download link for people without the app. Update this when the app is on Google Play.
+  var DOWNLOAD_URL = 'https://expo.dev/accounts/xh87/projects/gym-app/builds/991913e5-21bb-4ba3-800b-4a14adf6927e';
+
+  // ?code=XXXX = friend invite, ?coach=XXXX = trainer invite. Shows the code as K7QM-X2PA.
   var params = new URLSearchParams(location.search);
-  var code = (params.get('code') || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  var isCoach = params.has('coach');
+  var raw = params.get(isCoach ? 'coach' : 'code') || '';
+  var code = raw.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  document.getElementById('download').href = DOWNLOAD_URL;
+  if (isCoach) {
+    document.getElementById('title').textContent = 'Your trainer invited you';
+    document.getElementById('intro').textContent = 'Your trainer wants to follow your workouts on Gym Progress Tracker.';
+    document.getElementById('step3').innerHTML = 'Go to <strong>Settings → Your trainer</strong> and type the code above.';
+  }
   if (/^[A-HJ-NP-Z2-9]{8}$/.test(code)) {
     document.getElementById('code').textContent = code.slice(0, 4) + '-' + code.slice(4);
-    document.getElementById('open').href = 'com.hido.gymapp://invite/' + code;
+    document.getElementById('open').href = 'com.hido.gymapp://' + (isCoach ? 'coach/' : 'invite/') + code;
   } else {
     document.getElementById('code').textContent = 'Invalid link';
     document.getElementById('open').style.display = 'none';
