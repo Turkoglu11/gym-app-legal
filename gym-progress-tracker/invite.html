@@ -48,7 +48,7 @@
   if (isCoach) {
     document.getElementById('title').textContent = 'Your trainer invited you';
     document.getElementById('intro').textContent = 'Your trainer wants to follow your workouts on PackLift.';
-    document.getElementById('step3').innerHTML = 'Go to <strong>Settings → Your trainer</strong> and type the code above.';
+    document.getElementById('step3').innerHTML = 'On Home, tap <strong>Have a code from a friend or trainer?</strong> and type the code above.';
   }
   if (/^[A-HJ-NP-Z2-9]{8}$/.test(code)) {
     document.getElementById('code').textContent = code.slice(0, 4) + '-' + code.slice(4);
