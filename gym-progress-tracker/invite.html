@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex">
-  <title>Invite – Gym Progress Tracker by Hido</title>
+  <title>Invite – PackLift</title>
   <link rel="stylesheet" href="../style.css">
   <style>
     .code { font-size: 34px; font-weight: 800; letter-spacing: 3px; margin: 8px 0 24px; }
@@ -17,7 +17,7 @@
 <body>
 <main>
   <h1 id="title">You are invited</h1>
-  <p id="intro">A friend wants to train with you on Gym Progress Tracker.</p>
+  <p id="intro">A friend wants to train with you on PackLift.</p>
 
   <p class="meta">Your code</p>
   <p class="code" id="code">–</p>
@@ -37,7 +37,7 @@
 </main>
 <script>
   // Download link for people without the app. Update this when the app is on Google Play.
-  var DOWNLOAD_URL = 'https://expo.dev/accounts/xh87/projects/gym-app/builds/991913e5-21bb-4ba3-800b-4a14adf6927e';
+  var DOWNLOAD_URL = 'https://expo.dev/accounts/xh87/projects/gym-app/builds/3cfa5431-f65f-4e86-b4d6-38c6058f3d36';
 
   // ?code=XXXX = friend invite, ?coach=XXXX = trainer invite. Shows the code as K7QM-X2PA.
   var params = new URLSearchParams(location.search);
@@ -47,7 +47,7 @@
   document.getElementById('download').href = DOWNLOAD_URL;
   if (isCoach) {
     document.getElementById('title').textContent = 'Your trainer invited you';
-    document.getElementById('intro').textContent = 'Your trainer wants to follow your workouts on Gym Progress Tracker.';
+    document.getElementById('intro').textContent = 'Your trainer wants to follow your workouts on PackLift.';
     document.getElementById('step3').innerHTML = 'Go to <strong>Settings → Your trainer</strong> and type the code above.';
   }
   if (/^[A-HJ-NP-Z2-9]{8}$/.test(code)) {
